@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>color guessing game</title>
+    <script>
+       var target;
+       var guess_color_text;
+       var guess_color;
+       var finished=false;
+       var guesses=0;
+       var index;
+       var myBody;
+       var colors=["blue","cyan","gold","grey","green","magenta","orange",
+                   "red","white","yellow"];
+     function do_game(){
+            var arylength;
+                arylength=colors.length;
+            var random_no;
+                random_no=Math.random()*arylength;
+            var random=Math.floor(random_no);
+                target=colors[random];
+            while (!finished){
+                 guess_color=prompt("I am thinking of one of these colors:\n\n"
+                                    +colors+"\n\nWhat color am I thinking of?");
+                 guess_color_text=guess_color.toLowerCase();
+                 guesses +=1;
+                 finished = check_guess();
+                 setTimeout(function(){
+                 alert ("Congratulations!You have guessed the color!"+ target +
+                        "!\n\nIt took you"+ guesses +"guesses to finish the game!\n\n"+
+                         "You can see the color in background.");
+                },3000);
+                }
+        }
+      function check_guess(){
+               index=colors.indexOf(guess_color_text);
+            if(index<0){
+              alert ("Sorry,I don't recognize your color.\n\n"+
+                      "Please try again.");
+            return false;
+            }
+            if ( guess_color_text > target){
+               alert ("Sorry, your guess is not correct! \n\n"+
+                      "Hint:your color is alphabetically heigher than mine.\n\n"+
+                      "Please try again.");
+            return false;
+            }
+            if ( guess_color_text < target){
+               alert ("Sorry, your color is not correct!\n\n"+
+                      "Hint:your color is alphabetically lower than mine.\n\n"+
+                       "Please try again.");
+            return false;
+            }
+            else {
+            myBody=document.getElementsByTagName("body")[0];
+            myBody.style.background=target;
+            return true;
+          }
+          }
+    </script>
+    </head>
+    <body onload="do_game()">
+    </body>
+</html>
